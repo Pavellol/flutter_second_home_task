@@ -15,7 +15,7 @@ class InformationScreenWidget extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+        padding: EdgeInsets.only(left: 27.w, right: 14.w),
         children: [
           Text(
             textForInformationScreen,
@@ -29,18 +29,22 @@ class InformationScreenWidget extends StatelessWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 315.0.w,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Радиус скругления
+          Padding(
+            padding: EdgeInsets.only(left: 30.w, bottom: 41.h),
+            child: SizedBox(
+              width: 315.0.w,
+              height: 46.h,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), 
+                  ),
                 ),
+                onPressed: () {Navigator.pop(context);},
+                child: Text("Got it!"),
               ),
-              onPressed: () {Navigator.pop(context);},
-              child: Text("Got it!"),
             ),
           ),
         ],
