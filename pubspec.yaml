@@ -16,6 +16,8 @@ dependencies:
   flutter_svg: ^2.0.16
   flutter_sliding_up_panel: ^2.1.1
   intl: ^0.20.1
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.7
   
 dev_dependencies:
   flutter_test:

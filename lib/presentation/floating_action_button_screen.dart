@@ -7,53 +7,7 @@ class FloatingActionButtonScreen extends StatelessWidget {
   const FloatingActionButtonScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // void _showModalBottomSheet(BuildContext context) {
-    //   showModalBottomSheet(
-    //     context: context,
-    //     isDismissible: true,
-    //     builder: (BuildContext context) {
-    //       return SizedBox(
-    //         height: MediaQuery.of(context).size.height * 0.9.h, // Задайте высоту по вашему усмотрению
-    //         child: Center(
-    //           child: Text('Ваш контент здесь'),
-    //         ),
-    //       );
-    //     },
-    //   );
-    // }
-
-    //   void _showBottomSheet(BuildContext context) {
-    //   showModalBottomSheet(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return Expanded(
-    //         child: SizedBox(
-    //           height: 1000.h,
-    //           width: 370.w,
-    //           child: Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: <Widget>[
-    //               Text(
-    //                 'Bottom Sheet',
-    //                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-    //               ),
-    //               SizedBox(height: 20),
-    //               Text('This is a simple bottom sheet.'),
-    //               SizedBox(height: 20),
-    //               ElevatedButton(
-    //                 onPressed: () {
-    //                   Navigator.pop(context); // Закрыть Bottom Sheet
-    //                 },
-    //                 child: Text('Close'),
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //       );
-    //     },
-    //   );
-    // }
+  Widget build(BuildContext context) {   
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -68,7 +22,6 @@ class FloatingActionButtonScreen extends StatelessWidget {
                     builder: (context) => const InformationScreenWidget()),
               );
             },
-            // onPressed: () => InformationScreenWidget(),
             backgroundColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
@@ -84,13 +37,11 @@ class FloatingActionButtonScreen extends StatelessWidget {
           padding: EdgeInsets.only(),
           child: FloatingActionButton(
             heroTag: "add_button",
-            elevation: 25,
-            // onPressed: () => _showModalBottomSheet(context),
-            // onPressed: () => _showBottomSheet(context),
+            elevation: 25,            
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddTaskScreen()),
+                MaterialPageRoute(builder: (context) =>  AddTaskScreen()),
               );
             },
             backgroundColor: Colors.black,
@@ -102,15 +53,7 @@ class FloatingActionButtonScreen extends StatelessWidget {
               color: Colors.white,
               size: 42.0.w,
             ),
-          ),
-          //   child: ElevatedButton(
-          //   onPressed: () => _showBottomSheet(context),
-          //   child: Icon(
-          //       Icons.add,
-          //       color: Colors.white,
-          //       size: 42.0.w,
-          //     ),
-          // ),
+          ),          
         ),
       ],
     );

@@ -22,7 +22,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       body: MainScreenBody(),
-      bottomNavigationBar: BottomNavigationBarScreen(),
+      bottomNavigationBar: BottomNavigationBarScreen(
+       
+      ),
       floatingActionButton: FloatingActionButtonScreen(),
     );
   }

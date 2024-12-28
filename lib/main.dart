@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_second_home_task/presentation/add_task_screen.dart';
-import 'package:flutter_second_home_task/presentation/information_screen.dart';
+import 'package:flutter_second_home_task/Task/task_bloc.dart';
 import 'package:flutter_second_home_task/presentation/main_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (context) => TaskBloc(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

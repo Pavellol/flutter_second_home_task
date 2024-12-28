@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_second_home_task/Task/task_bloc.dart';
+import 'package:flutter_second_home_task/Task/task_event.dart';
+import 'package:flutter_second_home_task/Task/task_state.dart';
 import 'package:intl/intl.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -13,6 +17,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   // TextEditingController timePicker = TextEditingController();
   final datePickerController = TextEditingController();
   final timePickerController = TextEditingController();
+  final nameController = TextEditingController();
 
   void _selDatePicker() {
     showDatePicker(
@@ -72,7 +77,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   SizedBox(
                     width: 241.w,
                     height: 27.h,
-                    child: TextField(                      
+                    child: TextField(
+                      controller: nameController, 
                       decoration: InputDecoration(
                         hintText: 'Lorem ipsum dolor sit amet',
                         hintStyle: TextStyle(
@@ -86,6 +92,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               SizedBox(
                 height: 40.h,
               ),
+              //Time Picker
               Row(
                 children: [
                   Text(
@@ -102,36 +109,38 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       width: 70.w,
                       height: 29.h,
                       child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                            left: 8.0.w,
-                            right: 8.0.w,
-                            top: 4.0.h,
-                            bottom: 4.0.h,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(
+                              left: 8.0.w,
+                              right: 8.0.w,
+                              top: 4.0.h,
+                              bottom: 4.0.h,
+                            ),
+                            filled: true,
+                            fillColor: Color.fromRGBO(118, 118, 118, 0.12),
+                            hintText: '9:41',
+                            hintStyle: TextStyle(
+                              fontSize: 22.0.sp,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(6.sp)),
+                            ),
                           ),
-                          filled: true,
-                          fillColor: Color.fromRGBO(118, 118, 118, 0.12),
-                          hintText: '9:41',
-                          hintStyle: TextStyle(
-                            fontSize: 22.0.sp,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(6.sp)),
-                          ),
-                        ),
-                        controller: timePickerController,
-                        onTap: () async {
-                          var time = await showTimePicker(
-                              context: context, initialTime: TimeOfDay.now());
-                          if (time != null) {
-                            setState(() {
-                              timePickerController.text = time.format(context);
-                            });
-                          }
-                        },
-                      ),
+                          controller: timePickerController,
+                          onTap: () async {
+                            var time = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                            );
+                            if (time != null) {
+                              setState(() {
+                                timePickerController.text =
+                                    time.format(context);
+                              });
+                            }
+                          }),
                     ),
                   ),
                 ],
@@ -139,6 +148,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               SizedBox(
                 height: 40.h,
               ),
+
               Row(
                 children: [
                   Text(
@@ -155,28 +165,40 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       width: 147.w,
                       height: 28.h,
                       child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                            left: 8.0.w,
-                            right: 8.0.w,
-                            top: 4.0.h,
-                            bottom: 4.0.h,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(
+                              left: 8.0.w,
+                              right: 8.0.w,
+                              top: 4.0.h,
+                              bottom: 4.0.h,
+                            ),
+                            filled: true,
+                            fillColor: Color.fromRGBO(118, 118, 118, 0.12),
+                            hintText: '09.04.2023',
+                            hintStyle: TextStyle(
+                              fontSize: 22.0.sp,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(6.sp)),
+                            ),
                           ),
-                          filled: true,
-                          fillColor: Color.fromRGBO(118, 118, 118, 0.12),
-                          hintText: '09.04.2023',
-                          hintStyle: TextStyle(
-                            fontSize: 22.0.sp,
+                          onTap: () async {
+                            var pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2024),
+                              lastDate: DateTime(2100),
+                            );
+                            if (pickedDate != null) {
+                              setState(() {
+                                datePickerController.text =
+                                    DateFormat.yMd().format(pickedDate);
+                              });
+                            }
+                          }
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(6.sp)),
-                          ),
-                        ),
-                        onTap: _selDatePicker,
-                        controller: datePickerController,
-                      ),
                     ),
                   ),
                 ],
@@ -194,7 +216,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {Navigator.pop(context);},
+                  onPressed: () {
+                    final task = Task(
+                      date: datePickerController.text,
+                      time: timePickerController.text,
+                      name: nameController.text,
+                    );
+                    context.read<TaskBloc>().add(AddTask(task));
+                    Navigator.pop(context);
+                  },
                   child: Text("Done"),
                 ),
               ),

@@ -6,12 +6,12 @@ class BottomNavigationBarScreen extends StatefulWidget {
   const BottomNavigationBarScreen({super.key});
 
   @override
-  State<BottomNavigationBarScreen> createState() => _BottomNavigationBarScreenState();
+  State<BottomNavigationBarScreen> createState() =>
+      _BottomNavigationBarScreenState();
 }
 
 class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   int _selectedIndex = 0;
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -22,39 +22,48 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-        //showSelectedLabels: false,
-        //showUnselectedLabels: false,
-        items: <BottomNavigationBarItem>[          
-          BottomNavigationBarItem(              
-            icon: SvgPicture.asset(
-              'assets/nav_bar_icon_first.svg', 
-              width: 40.w,
-              height: 40.h,
-              ),
-            label: "",
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'assets/nav_bar_icon_first.svg',
+            width: 40.w,
+            height: 40.h,
+            // ignore: deprecated_member_use
+            color: _selectedIndex == 0
+                ? Color.fromRGBO(52, 120, 246, 1)
+                : Colors.grey,
           ),
-          BottomNavigationBarItem(              
-            icon: SvgPicture.asset(
-              'assets/nav_bar_icon_second.svg', 
-              width: 40.w,
-              height: 40.h,
-              ),   
-            label: "",         
+          label: "",
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'assets/nav_bar_icon_second.svg',
+            width: 40.w,
+            height: 40.h,
+            // ignore: deprecated_member_use
+            color: _selectedIndex == 1
+                ? Color.fromRGBO(52, 120, 246, 1)
+                : Colors.grey,
           ),
-          BottomNavigationBarItem(              
-            icon: SvgPicture.asset(
-              'assets/nav_bar_icon_three.svg', 
-              width: 40.w,
-              height: 40.h,
-              ),
-            label: "",         
+          label: "",
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'assets/nav_bar_icon_three.svg',
+            width: 40.w,
+            height: 40.h,
+            // ignore: deprecated_member_use
+            color: _selectedIndex == 2
+                ? Color.fromRGBO(52, 120, 246, 1)
+                : Colors.grey,
           ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromRGBO(52, 120, 246, 1),
-        //fixedColor: Colors.red,
-
-        onTap: _onItemTapped,
-      );
+          label: "",
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Color.fromRGBO(52, 120, 246, 1),
+      unselectedItemColor: Colors.grey,
+      onTap: _onItemTapped,
+    );
   }
 }
